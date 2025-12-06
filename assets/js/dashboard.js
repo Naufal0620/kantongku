@@ -235,7 +235,7 @@ function selectDate(day) {
                     <div class="flex items-center gap-3 flex-1 min-w-0">
                         
                         <div class="w-8 h-8 rounded-full ${t.color} flex-shrink-0 flex items-center justify-center text-xs">
-                            <i class="fas ${t.icon}"></i>
+                            <i class="fas fa-${t.icon}"></i>
                         </div>
                         
                         <div class="min-w-0">
@@ -271,7 +271,7 @@ function selectDate(day) {
                             <div class="flex items-center gap-3">
                                 
                                 <div class="w-8 h-8 rounded-full ${t.color} flex-shrink-0 flex items-center justify-center">
-                                    <i class="fas ${t.icon} text-xs"></i>
+                                    <i class="fas fa-${t.icon} text-xs"></i>
                                 </div>
                                 
                                 <div class="flex-1 min-w-0"> 
@@ -392,7 +392,7 @@ function setModalCategoryType(type, mode, selectedCatId = null) {
 
             div.innerHTML = `
                 <div class="w-12 h-12 rounded-2xl ${cat.color} bg-opacity-20 flex items-center justify-center mb-1">
-                    <i class="fas ${cat.icon}"></i>
+                    <i class="fas fa-${cat.icon}"></i>
                 </div>
                 <span class="text-[10px] text-gray-600 dark:text-gray-400 truncate w-full text-center">${cat.name}</span>
             `;
