@@ -325,7 +325,10 @@ function openAddModal() {
     // Reset Form
     document.getElementById('add_amount').value = '';
     document.getElementById('add_note').value = '';
-    const today = new Date().toISOString().split('T')[0];
+    // const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toLocaleDateString('en-CA', { 
+        timeZone: 'Asia/Jakarta' 
+    });
     document.getElementById('add_date').value = today;
     
     setModalCategoryType('expense', 'add'); // Default expense
@@ -344,7 +347,26 @@ function openEditModal(tx) {
     // Set Delete Link
     const deleteBtn = document.getElementById('btnDeleteTx');
     // Asumsi URL controller: base_url + dashboard/hapus_transaksi/ID
-    deleteBtn.href = BASE_URL + 'dashboard/hapus_transaksi/' + tx.id; 
+    deleteBtn.href = BASE_URL + 'dashboard/hapus_transaksi/' + tx.id;
+
+    deleteBtn.onclick = function(event) {
+        event.preventDefault(); // Mencegah link langsung dieksekusi
+
+        Swal.fire({
+            title: 'Yakin hapus data ini?',
+            text: "Data transaksi akan hilang permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#EF4444',
+            cancelButtonColor: '#6B7280',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = deleteBtn.href; // Lanjutkan ke link hapus
+            }
+        });
+    };
 
     // Set Kategori terpilih
     // Kita perlu tahu tx.category_id ada di type income atau expense

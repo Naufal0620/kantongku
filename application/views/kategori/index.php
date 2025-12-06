@@ -119,7 +119,7 @@
 
             <div class="flex gap-3">
                 <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition">Batal</button>
-                <a id="btnDelete" href="#" onclick="return confirm('Yakin hapus kategori ini?')" class="hidden py-2 px-4 bg-red-100 text-red-500 rounded-lg hover:bg-red-200 transition flex items-center justify-center">
+                <a id="btnDelete" href="#" class="hidden py-2 px-4 bg-red-100 text-red-500 rounded-lg hover:bg-red-200 transition flex items-center justify-center">
                     <i class="fas fa-trash"></i>
                 </a>
                 <button type="submit" class="flex-1 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition shadow-md">Simpan</button>

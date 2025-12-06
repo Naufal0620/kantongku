@@ -10,7 +10,12 @@
     
     <script>const BASE_URL = "<?= base_url(); ?>";</script>
 </head>
-<body class="bg-gray-50 flex items-center justify-center h-screen">
+<body class="bg-gray-50 flex items-center px-4 justify-center h-screen">
+
+    <a href="<?= base_url(); ?>" class="absolute top-6 left-6 text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition flex items-center gap-2 font-medium text-sm">
+        <i class="fas fa-arrow-left"></i>
+        <span>Kembali ke Home</span>
+    </a>
 
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
         <div class="text-center mb-6">

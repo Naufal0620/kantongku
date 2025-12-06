@@ -124,10 +124,33 @@ function editCategory(element) {
     if(type === 'expense') document.getElementById('radioExpense').checked = true;
     else document.getElementById('radioIncome').checked = true;
 
+    // Set Link Hapus & Logic SweetAlert
     const btnDelete = document.getElementById('btnDelete');
     btnDelete.classList.remove('hidden');
-    // Menggunakan variabel global PAGE_URLS
-    btnDelete.href = PAGE_URLS.hapus + id;
+    
+    // Set URL Hapus
+    const deleteUrl = PAGE_URLS.hapus + id;
+    btnDelete.href = deleteUrl;
+
+    // [BARU] Override event onclick untuk SweetAlert
+    btnDelete.onclick = function(event) {
+        event.preventDefault(); // Mencegah link langsung dieksekusi
+        
+        Swal.fire({
+            title: 'Hapus Kategori?',
+            text: "Data ini tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#EF4444', // Merah (Tailwind red-500)
+            cancelButtonColor: '#6B7280',  // Abu-abu
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = deleteUrl; // Lanjutkan ke link hapus
+            }
+        });
+    };
 }
 
 // 7. Tutup Modal

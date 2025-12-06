@@ -193,7 +193,7 @@
             </div>
 
             <div class="flex gap-3">
-                <a id="btnDeleteTx" href="#" onclick="return confirm('Yakin hapus transaksi ini?')" class="flex-none py-4 px-6 bg-red-100 text-red-500 font-bold rounded-xl hover:bg-red-200 transition text-center">
+                <a id="btnDeleteTx" href="#" class="flex-none py-4 px-6 bg-red-100 text-red-500 font-bold rounded-xl hover:bg-red-200 transition text-center">
                     <i class="fas fa-trash"></i>
                 </a>
                 <button type="submit" class="flex-1 bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 transition">Update</button>
