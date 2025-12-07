@@ -1,3 +1,16 @@
+<div class="md:hidden flex justify-between items-center mb-7">
+    <div class="flex items-center gap-3 dark:border-gray-700">
+        <i class="fas fa-wallet text-2xl text-green-500"></i>
+        <h1 class="text-xl font-bold dark:text-white">KantongKu</h1>
+    </div>
+
+    <div class="flex items-center gap-3">
+        <a href="<?= base_url('home/panduan'); ?>" class="w-10 h-10 rounded-full bg-white dark:bg-dark-card border border-gray-200 dark:border-gray-600 text-green-600 flex items-center justify-center shadow-sm hover:bg-green-50 transition" title="Panduan Aplikasi">
+            <i class="fas fa-question-circle text-lg"></i>
+        </a>
+    </div>
+</div>
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-gradient-to-r from-green-400 to-green-600 p-6 rounded-2xl shadow-lg text-white">
         <p class="text-sm opacity-80">Sisa Saldo</p>
@@ -116,7 +129,7 @@
     <i class="fas fa-plus"></i>
 </button>
 
-<form action="<?= site_url('dashboard/simpan_transaksi') ?>" method="POST">
+<form action="<?= site_url('dashboard/simpan_transaksi') ?>" method="POST" onsubmit="showLoading()">
     <div id="addTransactionModal" onclick="if(event.target === this) closeModal('addTransactionModal')" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-end md:items-center justify-center backdrop-blur-sm">
         <div class="bg-white dark:bg-dark-card w-full md:w-[400px] rounded-t-3xl md:rounded-3xl p-6 h-[85vh] md:h-auto overflow-y-auto animate-fade-in transition-colors" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6">
@@ -134,7 +147,7 @@
             <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Nominal</label>
                 <div class="flex items-center border-b-2 border-red-500 py-2" id="add_amountContainer">
                     <span class="text-2xl font-bold mr-2 text-gray-400">Rp</span>
-                    <input type="number" name="amount" id="add_amount" class="w-full text-3xl font-bold bg-transparent focus:outline-none dark:text-white" placeholder="0" required>
+                    <input type="number" name="amount" id="add_amount" class="w-full text-3xl font-bold bg-transparent focus:outline-none dark:text-white" placeholder="0" max="100000000" oninput="if(this.value > 100000000) this.value = 100000000;" required>
                 </div>
             </div>
 
@@ -148,7 +161,7 @@
             </div>
 
             <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Catatan</label>
-                <input type="text" name="note" id="add_note" class="w-full bg-gray-50 dark:bg-dark-input dark:border-gray-600 dark:text-white border border-gray-200 rounded-xl px-4 py-3" placeholder="Contoh: Nasi Padang">
+                <input type="text" name="note" id="add_note" class="w-full bg-gray-50 dark:bg-dark-input dark:border-gray-600 dark:text-white border border-gray-200 rounded-xl px-4 py-3" maxlength="255" placeholder="Contoh: Nasi Padang">
             </div>
 
             <button type="submit" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 transition">Simpan</button>
@@ -156,7 +169,7 @@
     </div>
 </form>
 
-<form action="<?= site_url('dashboard/update_transaksi') ?>" method="POST">
+<form action="<?= site_url('dashboard/update_transaksi') ?>" method="POST" onsubmit="showLoading()">
     <div id="editTransactionModal" onclick="if(event.target === this) closeModal('editTransactionModal')" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-end md:items-center justify-center backdrop-blur-sm">
         <div class="bg-white dark:bg-dark-card w-full md:w-[400px] rounded-t-3xl md:rounded-3xl p-6 h-[85vh] md:h-auto overflow-y-auto animate-fade-in transition-colors" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6">
@@ -176,7 +189,7 @@
             <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Nominal</label>
                 <div class="flex items-center border-b-2 border-red-500 py-2" id="edit_amountContainer">
                     <span class="text-2xl font-bold mr-2 text-gray-400">Rp</span>
-                    <input type="number" name="amount" id="edit_amount" class="w-full text-3xl font-bold bg-transparent focus:outline-none dark:text-white" placeholder="0" required>
+                    <input type="number" name="amount" id="edit_amount" class="w-full text-3xl font-bold bg-transparent focus:outline-none dark:text-white" placeholder="0" max="100000000" oninput="if(this.value > 100000000) this.value = 100000000;" required>
                 </div>
             </div>
 
@@ -189,7 +202,7 @@
             </div>
 
             <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Catatan</label>
-                <input type="text" name="note" id="edit_note" class="w-full bg-gray-50 dark:bg-dark-input dark:border-gray-600 dark:text-white border border-gray-200 rounded-xl px-4 py-3">
+                <input type="text" name="note" id="edit_note" class="w-full bg-gray-50 dark:bg-dark-input dark:border-gray-600 dark:text-white border border-gray-200 rounded-xl px-4 py-3" maxlength="255">
             </div>
 
             <div class="flex gap-3">
@@ -210,4 +223,8 @@
     const chartDataExpense = <?= json_encode($chart_data['expense']); ?>;
     const chartLabels = <?= json_encode($chart_data['labels']); ?>;
     const categories = <?= json_encode($categories); ?>;
+
+    const DASHBOARD_URLS = {
+        chart_data: "<?= base_url('dashboard/get_chart_data'); ?>"
+    };
 </script>

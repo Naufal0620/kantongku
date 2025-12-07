@@ -7,6 +7,7 @@ class Auth extends CI_Controller {
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('M_auth');
+        $this->load->model('M_kategori');
     }
 
     public function index() {
@@ -111,6 +112,10 @@ class Auth extends CI_Controller {
         // 2. Simpan ke Database
         // Kita panggil model yang sudah dibuat sebelumnya
         $this->M_auth->register_user();
+
+        // Buat kategori default
+        $user = $this->M_auth->get_user_by_email($this->input->post('email', true));
+        $this->M_kategori->add_default_categories($user["id"]);
 
         // 3. Kirim Respon Sukses
         echo json_encode([

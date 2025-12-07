@@ -11,8 +11,8 @@ class M_auth extends CI_Model {
         $data = [
             'name' => htmlspecialchars($this->input->post('name', true)),
             'email' => htmlspecialchars($this->input->post('email', true)),
-            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT), // Enkripsi Password
-            'avatar' => 'default.jpg' // Pastikan ada file default.jpg di assets/img/
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'avatar' => 'thpoam'
         ];
         $this->db->insert('users', $data);
     }

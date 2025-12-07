@@ -37,7 +37,8 @@ class M_transaksi extends CI_Model {
 
         $grouped = [];
         foreach ($query as $row) {
-            $day = (int)date('j', strtotime($row['date'])); 
+            $day = (int)date('j', strtotime($row['date']));
+            $row['note'] = html_escape($row['note']);
             $grouped[$day][] = $row;
         }
         return $grouped;
@@ -91,6 +92,28 @@ class M_transaksi extends CI_Model {
         $days_passed = (int)date('j'); 
         
         return $days_passed > 0 ? ($total_expense / $days_passed) : 0;
+    }
+
+    // Ambil semua transaksi di bulan & tahun tertentu untuk user ini
+    public function get_monthly_data($user_id, $month, $year)
+    {
+        // Pilih semua kolom transaksi, DAN kolom type dari tabel categories
+        $this->db->select('transactions.*, categories.type'); 
+        
+        $this->db->from('transactions');
+        
+        // Hubungkan transactions.category_id dengan categories.id
+        $this->db->join('categories', 'transactions.category_id = categories.id');
+        
+        // Filter User
+        $this->db->where('transactions.user_id', $user_id);
+        
+        // Filter Tanggal
+        $this->db->where('MONTH(transactions.date)', $month);
+        $this->db->where('YEAR(transactions.date)', $year);
+        
+        // Eksekusi query
+        return $this->db->get()->result_array();
     }
 
     public function add_transaction($data) {

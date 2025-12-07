@@ -8,6 +8,36 @@ class M_kategori extends CI_Model {
 
     // --- KODE LAMA (Disesuaikan sedikit dengan $this->table) ---
 
+    public function add_default_categories($user_id) {
+        $categories = [
+            [
+                "user_id" => $user_id,
+                "name" => "makan",
+                "type" => "expense",
+                "icon" => "utensils",
+                "color" => "bg-yellow-100 text-yellow-600"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "transportasi",
+                "type" => "expense",
+                "icon" => "bus",
+                "color" => "bg-blue-100 text-blue-600"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "gaji",
+                "type" => "income",
+                "icon" => "sack-dollar",
+                "color" => "bg-green-100 text-green-600"
+            ],
+        ];
+
+        foreach ($categories as $cat) {
+            $this->insert($cat);
+        }
+    }
+
     public function get_all($user_id) {
         // Saya tambahkan order_by agar data terbaru muncul di atas
         $this->db->order_by('id', 'DESC');
@@ -20,7 +50,8 @@ class M_kategori extends CI_Model {
         $data = ['expense' => [], 'income' => []];
         foreach($all as $cat) {
             // Karena return array, akses index menggunakan ['key']
-            $data[$cat['type']][] = $cat; 
+            $cat['name'] = html_escape($cat['name']);
+            $data[$cat['type']][] = $cat;
         }
         return $data;
     }

@@ -40,10 +40,15 @@ class Profile extends CI_Controller {
     {
         $user_id = $this->session->userdata('user_id');
 
-        $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim|max_length[100]', [
+            'max_length' => 'Nama terlalu panjang (maks 100 karakter)'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required|trim|max_length[255]', [
+            'max_length' => 'Password terlalu panjang'
+        ]);
         
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('pesan', '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">Gagal update! Nama tidak boleh kosong.</div>');
+            $this->session->set_flashdata('pesan', '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">' . validation_errors() . '</div>');
             redirect('profile');
         } else {
             // Siapkan data update

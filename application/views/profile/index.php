@@ -6,7 +6,7 @@
         <?= $this->session->flashdata('pesan'); ?>
     <?php endif; ?>
 
-    <form action="<?= base_url('profile/update'); ?>" method="post" class="space-y-4">
+    <form action="<?= base_url('profile/update'); ?>" method="post" class="space-y-4" onsubmit="showLoading()">
         
         <div class="flex flex-col items-center mb-8">
             <img id="avatarPreview" src="https://api.dicebear.com/7.x/avataaars/svg?seed=<?= $user['avatar']; ?>" class="w-24 h-24 mb-3 rounded-full border-4 border-green-50 shadow-md transition transform hover:scale-105">
@@ -20,12 +20,12 @@
 
         <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
-            <input type="text" name="name" value="<?= $user['name']; ?>" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-dark-input dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition" required>
+            <input type="text" name="name" value="<?= $user['name']; ?>" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-dark-input dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition" maxlength="100" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s.,'\-]/g, '');" required>
         </div>
 
         <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Password Baru</label>
-            <input type="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-dark-input dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition">
+            <input type="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-dark-input dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition" maxlength="255">
         </div>
 
         <div>

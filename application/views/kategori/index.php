@@ -36,7 +36,7 @@
                 class="category-item group bg-white dark:bg-dark-card border border-gray-100 dark:border-gray-700 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition transform hover:scale-105"
                 data-type="<?= $k['type']; ?>"
                 data-id="<?= $k['id']; ?>"
-                data-name="<?= $k['name']; ?>"
+                data-name="<?= html_escape($k['name']); ?>"
                 data-icon="<?= $k['icon']; ?>"
                 data-color="<?= $k['color']; ?>"
                 onclick="editCategory(this)"
@@ -45,7 +45,7 @@
                     <i class="fas fa-<?= $k['icon']; ?> text-lg"></i>
                 </div>
                 <span class="text-xs font-semibold text-gray-600 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-white text-center">
-                    <?= $k['name']; ?>
+                    <?= html_escape($k['name']); ?>
                 </span>
             </div>
         <?php endforeach; ?>
@@ -57,7 +57,7 @@
         
         <h3 class="font-bold text-lg mb-4 text-gray-800 dark:text-white" id="catModalTitle">Tambah Kategori</h3>
         
-        <form action="<?= base_url('kategori/tambah'); ?>" method="post" id="formCategory">
+        <form action="<?= base_url('kategori/tambah'); ?>" method="post" id="formCategory" onsubmit="showLoading()">
             <input type="hidden" name="id" id="inputId">
 
             <div class="mb-4">
@@ -76,7 +76,7 @@
 
             <div class="mb-4">
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Kategori</label>
-                <input type="text" name="name" id="inputName" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-dark-input dark:text-white transition" placeholder="Contoh: Belanja Bulanan" required>
+                <input type="text" name="name" id="inputName" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-dark-input dark:text-white transition" placeholder="Contoh: Belanja Bulanan" maxlength="50" required>
             </div>
 
             <div class="mb-4 relative">

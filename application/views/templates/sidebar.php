@@ -16,6 +16,9 @@
         <a href="<?= site_url('profile') ?>" class="w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition <?= $isActive ? 'bg-green-50 text-green-600 dark:bg-gray-700 font-bold' : 'text-gray-600 dark:text-gray-400 hover:bg-green-50 dark:hover:bg-gray-700 font-medium' ?>">
             <i class="fas fa-user w-6"></i> Profil
         </a>
+        <a href="<?= base_url('home/panduan'); ?>" class="w-full text-left px-4 py-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 font-medium flex items-center gap-3 transition">
+            <i class="fas fa-book-open w-6"></i> Panduan
+        </a>
     </nav>
 </aside>
 

@@ -1,95 +1,240 @@
-<nav class="fixed w-full z-50 bg-white/80 dark:bg-dark-card/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-700 transition-colors">
+<nav class="fixed w-full z-50 bg-white/90 dark:bg-dark-card/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-700 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <a href="<?= base_url(); ?>" class="flex items-center gap-2 hover:opacity-80 transition">
                 <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white">
                     <i class="fas fa-wallet"></i>
                 </div>
-                <span class="font-bold text-xl text-gray-800 dark:text-white tracking-tight">KantongKu</span>
+                <span class="font-bold text-xl text-gray-800 dark:text-white tracking-tight">KantongKu Docs</span>
             </a>
-            <a href="<?= base_url(); ?>" class="text-sm font-bold text-gray-500 hover:text-green-600 transition">
-                <i class="fas fa-arrow-left mr-1"></i> Kembali ke Home
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="<?= base_url(); ?>" class="text-sm font-medium text-gray-500 hover:text-green-600 transition hidden md:block">
+                    Kembali ke Home
+                </a>
+                <?php if($is_login): ?>
+                    <a href="<?= base_url('dashboard'); ?>" class="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-200 transition">
+                        Buka Aplikasi
+                    </a>
+                <?php else: ?>
+                    <a href="<?= base_url('auth'); ?>" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-700 transition shadow-lg shadow-green-500/30">
+                        Masuk
+                    </a>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </nav>
 
-<div class="min-h-screen pt-24 pb-20 bg-gray-50 dark:bg-dark-bg transition-colors">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+<div class="min-h-screen pt-16 bg-gray-50 dark:bg-dark-bg transition-colors flex flex-col md:flex-row max-w-7xl mx-auto">
+    
+    <aside class="w-full md:w-64 bg-white dark:bg-dark-card border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 md:h-[calc(100vh-4rem)] md:sticky md:top-16 overflow-y-auto z-40">
+        <div class="p-6">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Daftar Isi</h3>
+            <nav class="space-y-1">
+                <button onclick="switchGuide('mulai')" id="nav-mulai" class="nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition bg-green-50 text-green-700 dark:bg-gray-700 dark:text-green-400">
+                    <i class="fas fa-flag w-5"></i> Mulai Menggunakan
+                </button>
+                <button onclick="switchGuide('dashboard')" id="nav-dashboard" class="nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition">
+                    <i class="fas fa-chart-line w-5"></i> Memahami Dashboard
+                </button>
+                <button onclick="switchGuide('kategori')" id="nav-kategori" class="nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition">
+                    <i class="fas fa-tags w-5"></i> Manajemen Kategori
+                </button>
+                <button onclick="switchGuide('akun')" id="nav-akun" class="nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition">
+                    <i class="fas fa-user-shield w-5"></i> Akun & Keamanan
+                </button>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-12 overflow-y-auto">
         
-        <div class="text-center mb-16 animate-fade-in">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Panduan Penggunaan</h1>
-            <p class="text-gray-500 dark:text-gray-400 text-lg">Ikuti langkah mudah ini untuk mulai mengelola keuanganmu.</p>
+        <div id="content-mulai" class="guide-section animate-fade-in">
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Mulai Menggunakan</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Langkah awal perjalanan hematmu bersama KantongKu.</p>
+            </div>
+
+            <div class="prose dark:prose-invert max-w-none space-y-8">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 font-bold">1</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Pendaftaran Akun Baru</h3>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                            Untuk menjaga privasi data keuanganmu, kamu wajib memiliki akun.
+                            Klik tombol <b>Daftar Gratis</b> di halaman depan, lalu isi Nama Lengkap, Email, dan Password yang kuat.
+                        </p>
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400">
+                                <b>Penting:</b> Pastikan email kamu aktif agar jika lupa password, kamu bisa memulihkannya (Fitur mendatang).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">2</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Masuk ke Aplikasi</h3>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            Setelah mendaftar, gunakan email dan password yang telah didaftarkan untuk masuk. 
+                            Jika berhasil, kamu akan langsung diarahkan ke halaman <b>Dashboard</b>.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="relative border-l-4 border-green-200 dark:border-gray-700 ml-4 md:ml-10 space-y-12">
-            
-            <div class="relative pl-8 md:pl-12 group animate-fade-in">
-                <div class="absolute -left-[14px] top-0 w-6 h-6 bg-green-500 rounded-full border-4 border-white dark:border-dark-bg shadow-md group-hover:scale-125 transition"></div>
-                
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">1. Pendaftaran Akun</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                    Sebelum mulai, kamu perlu mendaftar terlebih dahulu. Klik tombol <b>Daftar Gratis</b> di halaman depan, isi Nama, Email, dan Password. Tenang, data kamu aman!
+        <div id="content-dashboard" class="guide-section hidden animate-fade-in">
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Memahami Dashboard</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Pusat kendali keuanganmu ada di sini.</p>
+            </div>
+
+            <div class="space-y-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-dark-card p-5 rounded-xl border border-gray-200 dark:border-gray-700">
+                        <i class="fas fa-wallet text-2xl text-green-500 mb-3"></i>
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-2">Ringkasan Saldo</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Menampilkan sisa uangmu saat ini (Pemasukan - Pengeluaran).</p>
+                    </div>
+                    <div class="bg-white dark:bg-dark-card p-5 rounded-xl border border-gray-200 dark:border-gray-700">
+                        <i class="fas fa-brain text-2xl text-blue-500 mb-3"></i>
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-2">Analisis Cerdas</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Kalkulasi sederhana yang menghitung "Burn Rate" atau berapa lama uangmu akan bertahan.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-calendar-alt text-gray-400"></i> Kalender Keuangan
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        Kalender ini unik. Tanggal akan berwarna <b class="text-green-600">Hijau</b> jika pemasukan > pengeluaran, dan <b class="text-red-500">Merah</b> jika kamu boros di hari itu.
+                        Klik tanggal manapun untuk melihat rincian transaksi di hari tersebut.
+                    </p>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm text-gray-600 dark:text-gray-400 italic border-l-4 border-gray-400">
+                        "Grafik di bawah kalender akan menyesuaikan dengan bulan yang kamu pilih di kalender."
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-plus-circle text-green-500"></i> Mencatat Transaksi
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
+                        <li>Klik tombol <b>(+)</b> melayang di pojok kanan bawah.</li>
+                        <li>Pilih jenis: <b>Pemasukan</b> atau <b>Pengeluaran</b>.</li>
+                        <li>Isi nominal (Maksimal Rp 100 Juta per transaksi).</li>
+                        <li>Pilih kategori yang sesuai.</li>
+                        <li>Tambahkan catatan opsional agar tidak lupa.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-kategori" class="guide-section hidden animate-fade-in">
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Manajemen Kategori</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Kelompokkan uangmu agar rapi dan terstruktur.</p>
+            </div>
+
+            <div class="space-y-8">
+                <p class="text-gray-600 dark:text-gray-400">
+                    Bawaan aplikasi sudah menyediakan kategori standar seperti Makan, Transport, dan Gaji. 
+                    Namun, kamu bisa mengubahnya sesuka hati di menu <b>Kategori</b>.
                 </p>
-                <div class="bg-white dark:bg-dark-card p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm inline-block">
-                    <span class="text-xs font-mono text-gray-500 dark:text-gray-400 block mb-2">Tips:</span>
-                    <div class="flex items-center gap-2 text-sm text-green-600 dark:text-green-400 font-medium">
-                        <i class="fas fa-check-circle"></i> Gunakan email yang aktif.
+
+                <div class="bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-2">Cara Menambah Kategori Baru</h4>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-600 dark:text-gray-400">
+                            <li>Buka menu <b>Kategori</b> di sidebar.</li>
+                            <li>Klik tombol <b>Tambah</b> di pojok kanan atas.</li>
+                            <li>Pilih jenis (Pemasukan/Pengeluaran).</li>
+                            <li>Beri nama (Contoh: "Skin Care" atau "Topup Game").</li>
+                            <li>Pilih <b>Ikon</b> yang lucu dan <b>Warna</b> yang sesuai.</li>
+                            <li>Simpan!</li>
+                        </ol>
+                    </div>
+                    <div class="p-6 bg-gray-50 dark:bg-gray-800/50">
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-2">Tips Pro:</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Gunakan warna <span class="text-red-500 font-bold">Merah</span> untuk kategori pengeluaran yang harus diwaspadai (seperti Jajan), 
+                            dan warna <span class="text-blue-500 font-bold">Biru</span> untuk kebutuhan pokok.
+                        </p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="relative pl-8 md:pl-12 group animate-fade-in" style="animation-delay: 0.1s">
-                <div class="absolute -left-[14px] top-0 w-6 h-6 bg-white dark:bg-dark-card border-4 border-green-500 rounded-full shadow-md group-hover:bg-green-500 transition"></div>
-                
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">2. Mengatur Kategori</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                    Masuk ke menu <b>Kategori</b>. Di sini kamu bisa membuat pos-pos keuangan. 
-                    Pisahkan antara <i>Pemasukan</i> (Gaji, Kiriman Ortu) dan <i>Pengeluaran</i> (Makan, Transport, Laundry).
-                </p>
-                <div class="grid grid-cols-2 gap-3 max-w-sm">
-                    <div class="flex items-center gap-2 p-2 bg-red-50 text-red-600 rounded-lg text-xs font-bold border border-red-100">
-                        <i class="fas fa-utensils"></i> Makan
-                    </div>
-                    <div class="flex items-center gap-2 p-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold border border-blue-100">
-                        <i class="fas fa-bus"></i> Transport
-                    </div>
-                </div>
+        <div id="content-akun" class="guide-section hidden animate-fade-in">
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Akun & Keamanan</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Kelola privasi dan kenyamanan penggunaan aplikasi.</p>
             </div>
 
-            <div class="relative pl-8 md:pl-12 group animate-fade-in" style="animation-delay: 0.2s">
-                <div class="absolute -left-[14px] top-0 w-6 h-6 bg-white dark:bg-dark-card border-4 border-green-500 rounded-full shadow-md group-hover:bg-green-500 transition"></div>
-                
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">3. Mencatat Transaksi</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                    Setiap kali kamu mengeluarkan uang, klik tombol <b>(+)</b> besar di Dashboard. 
-                    Pilih kategori, masukkan nominal, dan simpan. Jangan menunda mencatat agar laporanmu akurat!
-                </p>
-            </div>
-
-            <div class="relative pl-8 md:pl-12 group animate-fade-in" style="animation-delay: 0.3s">
-                <div class="absolute -left-[14px] top-0 w-6 h-6 bg-white dark:bg-dark-card border-4 border-green-500 rounded-full shadow-md group-hover:bg-green-500 transition"></div>
-                
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">4. Pantau & Analisis</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                    Di halaman <b>Dashboard</b>, kamu bisa melihat grafik perbandingan pemasukan vs pengeluaran.
-                    Cek juga fitur <i>Analisis Cerdas</i> untuk mengetahui berapa lama sisa saldomu akan bertahan.
-                </p>
-                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
-                    <p class="text-sm text-blue-800 dark:text-blue-300">
-                        <i class="fas fa-info-circle mr-1"></i> <b>Fitur Unik:</b> Jika indikator berubah merah, artinya pengeluaranmu lebih besar dari pendapatanmu!
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3">
+                        <i class="fas fa-user-circle text-gray-400 mr-2"></i> Foto Profil Unik
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                        KantongKu menggunakan avatar kartun yang unik. Kamu bisa mengganti avatarmu dengan menekan tombol 
+                        <b>"Ganti Foto (Acak)"</b> di halaman profil. Terus klik sampai nemu yang mirip kamu!
                     </p>
                 </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3">
+                        <i class="fas fa-key text-gray-400 mr-2"></i> Ganti Password
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                        Merasa passwordmu diketahui teman kos? Segera ganti di halaman Profil. 
+                        Pastikan menggunakan kombinasi huruf dan angka agar aman.
+                    </p>
+                </div>
+
+                <div class="md:col-span-2 bg-gray-900 text-white p-6 rounded-xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-lg font-bold mb-2"><i class="fas fa-moon text-yellow-400 mr-2"></i> Mode Gelap (Dark Mode)</h3>
+                        <p class="text-gray-300 text-sm">
+                            Suka begadang ngurus keuangan? KantongKu otomatis mengikuti pengaturan tema di HP/Laptop kamu. 
+                            Atau kamu bisa mengaktifkannya manual lewat menu Pengaturan (Coming Soon).
+                        </p>
+                    </div>
+                    <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-10 translate-y-10">
+                        <i class="fas fa-moon text-9xl"></i>
+                    </div>
+                </div>
             </div>
-
         </div>
 
-        <div class="mt-20 text-center animate-fade-in">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Siap menjadi lebih hemat?</h2>
-            <a href="<?= base_url('auth/registration'); ?>" class="inline-block px-8 py-4 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 transition shadow-xl hover:-translate-y-1">
-                Buat Akun Sekarang
-            </a>
-        </div>
-
-    </div>
+    </main>
 </div>
+
+<script>
+    function switchGuide(id) {
+        // 1. Sembunyikan semua konten
+        document.querySelectorAll('.guide-section').forEach(el => {
+            el.classList.add('hidden');
+        });
+
+        // 2. Reset semua style tombol nav (Inactive State)
+        document.querySelectorAll('.nav-item').forEach(btn => {
+            btn.className = "nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition";
+        });
+
+        // 3. Tampilkan konten yang dipilih
+        document.getElementById('content-' + id).classList.remove('hidden');
+
+        // 4. Highlight tombol nav yang aktif (Active State)
+        const activeBtn = document.getElementById('nav-' + id);
+        activeBtn.className = "nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition bg-green-50 text-green-700 dark:bg-gray-700 dark:text-green-400 font-bold shadow-sm";
+        
+        // Scroll to top mobile
+        if(window.innerWidth < 768) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+</script>

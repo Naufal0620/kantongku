@@ -30,6 +30,7 @@ function confirmLogout() {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
+                showLoading();
                 window.location.href = PROFILE_URLS.logout;
             }
         });

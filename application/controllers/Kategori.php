@@ -40,7 +40,7 @@ class Kategori extends CI_Controller {
 
     public function tambah()
     {
-        $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim');
+        $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim|max_length[50]');
         $this->form_validation->set_rules('type', 'Jenis', 'required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -65,7 +65,7 @@ class Kategori extends CI_Controller {
     public function edit($id)
     {
         // Validasi form sama seperti tambah
-        $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim');
+        $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim|max_length[50]');
         $this->form_validation->set_rules('type', 'Jenis', 'required');
 
         if ($this->form_validation->run() == FALSE) {

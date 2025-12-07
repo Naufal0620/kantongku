@@ -127,27 +127,25 @@ function editCategory(element) {
     // Set Link Hapus & Logic SweetAlert
     const btnDelete = document.getElementById('btnDelete');
     btnDelete.classList.remove('hidden');
-    
-    // Set URL Hapus
-    const deleteUrl = PAGE_URLS.hapus + id;
+    const deleteUrl = PAGE_URLS.hapus + id; // Menggunakan variable global dari View
     btnDelete.href = deleteUrl;
 
-    // [BARU] Override event onclick untuk SweetAlert
     btnDelete.onclick = function(event) {
-        event.preventDefault(); // Mencegah link langsung dieksekusi
+        event.preventDefault(); 
         
         Swal.fire({
             title: 'Hapus Kategori?',
             text: "Data ini tidak bisa dikembalikan!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#EF4444', // Merah (Tailwind red-500)
-            cancelButtonColor: '#6B7280',  // Abu-abu
+            confirmButtonColor: '#EF4444', 
+            cancelButtonColor: '#6B7280',  
             confirmButtonText: 'Ya, Hapus!',
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = deleteUrl; // Lanjutkan ke link hapus
+                showLoading();
+                window.location.href = deleteUrl; 
             }
         });
     };
