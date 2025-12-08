@@ -17,7 +17,7 @@ class Dashboard extends CI_Controller {
         $data['saldo'] = $this->M_transaksi->get_saldo($user_id);
         $data['categories'] = $this->M_kategori->get_grouped($user_id);
         
-        // UPDATE INI: Kirim Bulan & Tahun Saat Ini
+        // Kirim Bulan & Tahun Saat Ini
         $currentMonth = date('m');
         $currentYear = date('Y');
         $data['calendar_data'] = $this->M_transaksi->get_calendar_data($user_id, $currentMonth, $currentYear);
@@ -33,7 +33,6 @@ class Dashboard extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    // --- TAMBAHAN BARU: Endpoint AJAX untuk Ganti Bulan ---
     public function get_calendar_json() {
         $user_id = $this->session->userdata('user_id');
         $month = $this->input->get('month');
@@ -49,7 +48,6 @@ class Dashboard extends CI_Controller {
 
     public function get_chart_data()
     {
-        // Ambil input dari AJAX
         $month = $this->input->post('month');
         $year  = $this->input->post('year');
         $user_id = $this->session->userdata('user_id');
@@ -68,7 +66,7 @@ class Dashboard extends CI_Controller {
         ];
 
         foreach ($raw_data as $t) {
-            $day = date('j', strtotime($t['date'])); // Ambil tanggal (1-31)
+            $day = date('j', strtotime($t['date']));
             
             // Tentukan masuk minggu ke berapa
             if ($day <= 7) $w = 1;
@@ -97,13 +95,15 @@ class Dashboard extends CI_Controller {
             $response['expense'][] = $w['expense'];
         }
 
-        // Return JSON
         echo json_encode($response);
     }
 
     public function simpan_transaksi() {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('amount', 'Nominal', 'required|numeric|less_than_equal_to[100000000]');
+        $this->form_validation->set_rules('amount', 'Nominal', 'required|numeric|greater_than[0]|less_than_equal_to[100000000]', [
+            'less_than_equal_to' => 'Nominal maksimal adalah Rp 100.000.000',
+            'greater_than' => 'Nominal harus lebih dari 0 dan tidak boleh minus'
+        ]);
 
         if ($this->form_validation->run()) {
             $data = [

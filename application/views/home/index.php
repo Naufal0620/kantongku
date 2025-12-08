@@ -1,30 +1,58 @@
-<nav class="fixed w-full z-50 bg-white/80 dark:bg-dark-card/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-700 transition-colors">
+<nav class="fixed w-full z-50 bg-white/80 dark:bg-dark-card/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-700 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
+            
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white">
                     <i class="fas fa-wallet"></i>
                 </div>
                 <span class="font-bold text-xl text-gray-800 dark:text-white tracking-tight">KantongKu</span>
             </div>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#fitur" class="text-gray-600 dark:text-gray-300 hover:text-green-600 font-medium transition">Fitur</a>
-                <a href="<?= base_url('home/panduan'); ?>" class="text-gray-600 dark:text-gray-300 hover:text-green-600 font-medium transition">Panduan</a>
+
+            <div class="flex items-center gap-4">
                 
-                <?php if($is_login): ?>
-                    <a href="<?= base_url('dashboard'); ?>" class="bg-green-600 text-white px-5 py-2 rounded-full font-bold hover:bg-green-700 transition shadow-lg shadow-green-500/30">
-                        Dashboard
-                    </a>
-                <?php else: ?>
-                    <a href="<?= base_url('auth'); ?>" class="text-gray-800 dark:text-white font-bold hover:text-green-600 transition">Masuk</a>
-                    <a href="<?= base_url('auth/registration'); ?>" class="bg-green-600 text-white px-5 py-2 rounded-full font-bold hover:bg-green-700 transition shadow-lg shadow-green-500/30">
-                        Daftar Gratis
-                    </a>
-                <?php endif; ?>
-            </div>
+                <button id="themeToggleBtn" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition focus:outline-none">
+                    <i class="fas fa-moon block dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#fitur" class="text-gray-600 dark:text-gray-300 hover:text-green-600 font-medium transition">Fitur</a>
+                    <a href="<?= base_url('home/panduan'); ?>" class="text-gray-600 dark:text-gray-300 hover:text-green-600 font-medium transition">Panduan</a>
+                    
+                    <?php if($is_login): ?>
+                        <a href="<?= base_url('dashboard'); ?>" class="bg-green-600 text-white px-5 py-2 rounded-full font-bold hover:bg-green-700 transition shadow-lg shadow-green-500/30">
+                            Dashboard
+                        </a>
+                    <?php else: ?>
+                        <a href="<?= base_url('auth'); ?>" class="text-gray-800 dark:text-white font-bold hover:text-green-600 transition">Masuk</a>
+                        <a href="<?= base_url('auth/registration'); ?>" class="bg-green-600 text-white px-5 py-2 rounded-full font-bold hover:bg-green-700 transition shadow-lg shadow-green-500/30">
+                            Daftar Gratis
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                </div>
         </div>
     </div>
 </nav>
+
+<script>
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const htmlRoot = document.documentElement;
+
+    themeToggleBtn.addEventListener('click', function() {
+        if (htmlRoot.classList.contains('dark')) {
+            // Switch to Light
+            htmlRoot.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            // Switch to Dark
+            htmlRoot.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    });
+</script>
 
 <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

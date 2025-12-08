@@ -12,11 +12,11 @@
                     Kembali ke Home
                 </a>
                 <?php if($is_login): ?>
-                    <a href="<?= base_url('dashboard'); ?>" class="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-200 transition">
+                    <a href="<?= base_url('dashboard'); ?>" class="bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100 px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-200 dark:hover:bg-green-600 transition">
                         Buka Aplikasi
                     </a>
                 <?php else: ?>
-                    <a href="<?= base_url('auth'); ?>" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-700 transition shadow-lg shadow-green-500/30">
+                    <a href="<?= base_url('auth'); ?>" class="bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100 px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-200 dark:hover:bg-green-600 transition">
                         Masuk
                     </a>
                 <?php endif; ?>
@@ -195,12 +195,12 @@
                     </p>
                 </div>
 
-                <div class="md:col-span-2 bg-gray-900 text-white p-6 rounded-xl relative overflow-hidden">
+                <div class="md:col-span-2 bg-gray-900 border border-gray-200 dark:border-gray-700 text-white p-6 rounded-xl relative overflow-hidden">
                     <div class="relative z-10">
                         <h3 class="text-lg font-bold mb-2"><i class="fas fa-moon text-yellow-400 mr-2"></i> Mode Gelap (Dark Mode)</h3>
                         <p class="text-gray-300 text-sm">
                             Suka begadang ngurus keuangan? KantongKu otomatis mengikuti pengaturan tema di HP/Laptop kamu. 
-                            Atau kamu bisa mengaktifkannya manual lewat menu Pengaturan (Coming Soon).
+                            Atau kamu bisa mengaktifkannya manual lewat menu Pengaturan.
                         </p>
                     </div>
                     <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-10 translate-y-10">

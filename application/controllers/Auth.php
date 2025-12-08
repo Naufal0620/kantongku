@@ -22,7 +22,6 @@ class Auth extends CI_Controller {
         $this->load->view('auth/login', $data);
     }
 
-    // --- LOGIKA BARU UNTUK AJAX ---
     public function process_login() {
         // Set response header ke JSON
         header('Content-Type: application/json');
@@ -88,7 +87,6 @@ class Auth extends CI_Controller {
         $this->load->view('auth/register', $data);
     }
 
-    // --- LOGIKA AJAX REGISTER ---
     public function process_register() {
         header('Content-Type: application/json');
 
@@ -110,7 +108,6 @@ class Auth extends CI_Controller {
         }
 
         // 2. Simpan ke Database
-        // Kita panggil model yang sudah dibuat sebelumnya
         $this->M_auth->register_user();
 
         // Buat kategori default

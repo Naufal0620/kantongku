@@ -3,10 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_kategori extends CI_Model {
     
-    // Nama tabel
     private $table = 'categories';
-
-    // --- KODE LAMA (Disesuaikan sedikit dengan $this->table) ---
 
     public function add_default_categories($user_id) {
         $categories = [
@@ -39,32 +36,26 @@ class M_kategori extends CI_Model {
     }
 
     public function get_all($user_id) {
-        // Saya tambahkan order_by agar data terbaru muncul di atas
         $this->db->order_by('id', 'DESC');
         return $this->db->get_where($this->table, ['user_id' => $user_id])->result_array();
     }
     
-    // Helper untuk memisahkan income/expense (Dipakai Dashboard)
     public function get_grouped($user_id) {
         $all = $this->get_all($user_id);
         $data = ['expense' => [], 'income' => []];
         foreach($all as $cat) {
-            // Karena return array, akses index menggunakan ['key']
             $cat['name'] = html_escape($cat['name']);
             $data[$cat['type']][] = $cat;
         }
         return $data;
     }
 
-    // --- TAMBAHAN BARU UNTUK FITUR KATEGORI (CRUD) ---
-
-    // Ambil 1 data spesifik (Untuk Edit) - Return Array
     public function get_by_id($id)
     {
         $user_id = $this->session->userdata('user_id');
         
         $this->db->where('id', $id);
-        $this->db->where('user_id', $user_id); // Security: Cek punya user sendiri
+        $this->db->where('user_id', $user_id);
         return $this->db->get($this->table)->row_array(); 
     }
 

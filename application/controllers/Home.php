@@ -9,7 +9,6 @@ class Home extends CI_Controller {
         $data['is_login'] = $this->session->userdata('user_id'); // Cek status login
 
         $this->load->view('templates/header', $data);
-        // Kita TIDAK memuat sidebar di sini agar tampilan full-width
         $this->load->view('home/index', $data);
         $this->load->view('templates/footer');
     }

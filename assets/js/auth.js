@@ -1,6 +1,5 @@
 $(document).ready(function() {
-
-    // --- LOGIKA LOGIN (YANG SUDAH ADA) ---
+    // --- LOGIKA LOGIN ---
     $('#formLogin').on('submit', function(e) {
         e.preventDefault();
         const btn = $('#btnLogin');
@@ -36,7 +35,7 @@ $(document).ready(function() {
         });
     });
 
-    // --- LOGIKA REGISTER (BARU) ---
+    // --- LOGIKA REGISTER ---
     $('#formRegister').on('submit', function(e) {
         e.preventDefault(); // Mencegah reload halaman
 
@@ -47,13 +46,12 @@ $(document).ready(function() {
         btn.html('<i class="fas fa-spinner fa-spin"></i> Memproses...').prop('disabled', true);
 
         $.ajax({
-            url: BASE_URL + 'auth/process_register', // Ke method baru
+            url: BASE_URL + 'auth/process_register',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    // Sukses: Tampilkan Alert lalu pindah ke Login
                     Swal.fire({
                         icon: 'success',
                         title: 'Registrasi Berhasil!',
@@ -65,7 +63,6 @@ $(document).ready(function() {
                         }
                     });
                 } else {
-                    // Gagal: Tampilkan Validasi Error
                     Swal.fire({
                         icon: 'warning',
                         title: 'Periksa Data',

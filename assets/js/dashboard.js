@@ -18,15 +18,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     selectDate(new Date().getDate()); 
     calculateBurnRate();
-    setModalCategoryType('expense', 'add'); 
+    setModalCategoryType('expense', 'add');
+
+    // --- INISIALISASI FLATPICKR (Custom Datepicker) ---
+    flatpickr(".datepicker-input", {
+        dateFormat: "Y-m-d", // Format Database MySQL
+        altInput: true,      // Tampilkan format yang lebih mudah dibaca user
+        altFormat: "j F Y",  // Contoh tampilan: 7 Desember 2025
+        disableMobile: "true", // PENTING: Paksa pakai tema kita di HP (jangan pakai native HP)
+        static: true, // Agar posisi dropdown mengikuti scroll
+        locale: {
+            firstDayOfWeek: 1 // Mulai hari Senin
+        }
+    });
 });
 
-// --- CHART LOGIC (BARU: Perbandingan Mingguan) ---
-
-// 1. Inisialisasi Chart (Format Baru)
+// --- CHART LOGIC (Perbandingan Mingguan) ---
 function initComparisonChart() {
     const ctx = document.getElementById('comparisonChart').getContext('2d');
     
+    // 1. Deteksi apakah sedang Mode Gelap
+    const isDarkMode = document.documentElement.classList.contains('dark');
+
+    // 2. Tentukan Warna berdasarkan Mode
+    const textColor = isDarkMode ? '#9CA3AF' : '#6B7280'; // Gray-400 (Dark) vs Gray-500 (Light)
+    const gridColor = isDarkMode ? '#374151' : '#E5E7EB'; // Gray-700 (Dark) vs Gray-200 (Light)
+    const incomeFill = isDarkMode ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)'; // Sedikit lebih tebal di dark mode
+    const expenseFill = isDarkMode ? 'rgba(239, 68, 68, 0.2)' : 'rgba(239, 68, 68, 0.1)';
+
     comparisonChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -34,17 +53,17 @@ function initComparisonChart() {
             datasets: [
                 {
                     label: 'Pemasukan',
-                    data: [0, 0, 0, 0, 0], // Data awal kosong
+                    data: [0, 0, 0, 0, 0],
                     borderColor: '#10B981', // Green-500
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    backgroundColor: incomeFill,
                     fill: true,
                     tension: 0.4
                 },
                 {
                     label: 'Pengeluaran',
-                    data: [0, 0, 0, 0, 0], // Data awal kosong
+                    data: [0, 0, 0, 0, 0],
                     borderColor: '#EF4444', // Red-500
-                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    backgroundColor: expenseFill,
                     fill: true,
                     tension: 0.4
                 }
@@ -54,8 +73,19 @@ function initComparisonChart() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'top' },
+                legend: { 
+                    position: 'top',
+                    labels: {
+                        color: textColor // Ubah warna teks Legend
+                    }
+                },
                 tooltip: {
+                    // Kustomisasi Tooltip agar pas di Dark Mode
+                    backgroundColor: isDarkMode ? '#1F2937' : 'rgba(0,0,0,0.8)',
+                    titleColor: isDarkMode ? '#F3F4F6' : '#fff',
+                    bodyColor: isDarkMode ? '#D1D5DB' : '#fff',
+                    borderColor: isDarkMode ? '#374151' : 'transparent',
+                    borderWidth: 1,
                     callbacks: {
                         label: function(context) {
                             let label = context.dataset.label || '';
@@ -67,27 +97,34 @@ function initComparisonChart() {
                 }
             },
             scales: {
-                x: { grid: { display: false } },
+                x: { 
+                    grid: { 
+                        display: false 
+                    },
+                    ticks: {
+                        color: textColor // Ubah warna teks Sumbu X
+                    }
+                },
                 y: {
-                    // [BARU] Format Nominal di Sumbu Y
                     ticks: {
                         callback: function(value) {
                             return new Intl.NumberFormat('id-ID', { 
                                 style: 'currency', currency: 'IDR', notation: "compact", maximumFractionDigits: 1
                             }).format(value);
                         },
-                        color: '#9CA3AF'
+                        color: textColor // Ubah warna teks Sumbu Y
                     },
-                    grid: { borderDash: [2, 2], color: '#E5E7EB' }
+                    grid: { 
+                        borderDash: [2, 2], 
+                        color: gridColor // Ubah warna Garis Grid
+                    }
                 }
             }
         }
     });
 }
 
-// 2. Load Data Chart via AJAX
 function loadChartData(month, year) {
-    // Pastikan URL 'DASHBOARD_URLS' sudah didefinisikan di View
     if (typeof DASHBOARD_URLS === 'undefined') return;
 
     $.ajax({
@@ -133,7 +170,7 @@ function fetchCalendarData() {
     grid.innerHTML = '<div class="col-span-7 text-center py-10 text-gray-400"><i class="fas fa-spinner fa-spin text-2xl"></i></div>';
 
     $.ajax({
-        url: BASE_URL + 'dashboard/get_calendar_json', // URL lama kamu
+        url: BASE_URL + 'dashboard/get_calendar_json',
         type: 'GET',
         data: { month: month, year: year },
         dataType: 'json',
@@ -150,7 +187,7 @@ function fetchCalendarData() {
     });
 }
 
-// 4. Render Grid Kotak-Kotak (DITAMBAHKAN loadChartData)
+// 4. Render Grid Kotak-Kotak dan loadChartData
 function renderCalendar() {
     const grid = document.getElementById('calendarGrid'); 
     grid.innerHTML = '';
@@ -158,7 +195,7 @@ function renderCalendar() {
     const year = activeDate.getFullYear();
     const month = activeDate.getMonth(); 
     
-    // [BARU] Panggil update chart setiap kali kalender dirender (ganti bulan)
+    // Panggil update chart setiap kali kalender dirender (ganti bulan)
     loadChartData(month + 1, year);
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -208,7 +245,29 @@ function renderCalendar() {
 }
 
 
-// --- TRANSACTION LIST & MODAL LOGIC (TIDAK BERUBAH) ---
+// --- TRANSACTION LIST & MODAL LOGIC ---
+
+/**
+ * Fungsi Stepper Nominal (Tambah/Kurang 1000)
+ * @param {string} inputId - ID dari input element (add_amount / edit_amount)
+ * @param {number} step - Nilai penambahan (bisa positif atau negatif)
+ */
+function adjustNominal(inputId, step) {
+    const input = document.getElementById(inputId);
+    let currentValue = parseInt(input.value) || 0; // Jika kosong dianggap 0
+    
+    // Hitung nilai baru
+    let newValue = currentValue + step;
+
+    // Validasi Min (Tidak boleh minus)
+    if (newValue < 0) newValue = 0;
+
+    // Validasi Max (Tidak boleh lebih dari 100jt)
+    if (newValue > 100000000) newValue = 100000000;
+
+    // Set nilai baru ke input
+    input.value = newValue;
+}
 
 function selectDate(day) {
     document.getElementById('selectedDateDisplay').innerText = day;
@@ -308,25 +367,25 @@ function calculateBurnRate() {
 // Helper untuk menutup modal
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-// 1. ADD TRANSACTION
+// ADD TRANSACTION
 function openAddModal() {
     document.getElementById('addTransactionModal').classList.remove('hidden');
     document.getElementById('add_amount').value = '';
     document.getElementById('add_note').value = '';
     const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jakarta' });
-    document.getElementById('add_date').value = today;
+    document.getElementById('add_date')._flatpickr.setDate(today);
     setModalCategoryType('expense', 'add'); 
 }
 
-// 2. EDIT TRANSACTION 
+// EDIT TRANSACTION 
 function openEditModal(tx) {
     document.getElementById('editTransactionModal').classList.remove('hidden');
     
     document.getElementById('edit_id').value = tx.id;
     document.getElementById('edit_amount').value = tx.amount;
     document.getElementById('edit_note').value = tx.note;
-    document.getElementById('edit_date').value = tx.date; 
-    
+    document.getElementById('edit_date')._flatpickr.setDate(tx.date);
+
     const deleteBtn = document.getElementById('btnDeleteTx');
     deleteBtn.href = BASE_URL + 'dashboard/hapus_transaksi/' + tx.id;
 
@@ -351,7 +410,7 @@ function openEditModal(tx) {
     setModalCategoryType(tx.type, 'edit', tx.category_id);
 }
 
-// LOGIKA PILIH KATEGORI (REUSABLE)
+// LOGIKA PILIH KATEGORI
 function setModalCategoryType(type, mode, selectedCatId = null) {
     const prefix = mode === 'add' ? 'add' : 'edit';
     const listContainer = document.getElementById(`${prefix}_categoryList`);
@@ -362,11 +421,13 @@ function setModalCategoryType(type, mode, selectedCatId = null) {
     if (type === 'expense') {
         btnExp.className = "flex-1 py-3 rounded-lg font-bold text-sm bg-white dark:bg-dark-card text-red-500 shadow-sm transition-all";
         btnInc.className = "flex-1 py-3 rounded-lg font-medium text-sm text-gray-500 dark:text-gray-400 transition-all";
-        amtContainer.className = "flex items-center border-b-2 border-red-500 py-2";
+        amtContainer.classList.remove("focus-within:ring-green-500");
+        amtContainer.classList.add("focus-within:ring-red-500");
     } else {
         btnExp.className = "flex-1 py-3 rounded-lg font-medium text-sm text-gray-500 dark:text-gray-400 transition-all";
         btnInc.className = "flex-1 py-3 rounded-lg font-bold text-sm bg-white dark:bg-dark-card text-green-600 shadow-sm transition-all";
-        amtContainer.className = "flex items-center border-b-2 border-green-500 py-2";
+        amtContainer.classList.remove("focus-within:ring-red-500");
+        amtContainer.classList.add("focus-within:ring-green-500");
     }
 
     listContainer.innerHTML = '';
@@ -384,7 +445,7 @@ function setModalCategoryType(type, mode, selectedCatId = null) {
             }
 
             div.innerHTML = `
-                <div class="w-12 h-12 rounded-2xl ${cat.color} bg-opacity-20 flex items-center justify-center mb-1">
+                <div class="w-12 h-12 rounded-2xl ${cat.color} bg-opacity-50 flex items-center justify-center mb-1">
                     <i class="fas fa-${cat.icon}"></i>
                 </div>
                 <span class="text-[10px] text-gray-600 dark:text-gray-400 truncate w-full text-center">${cat.name}</span>

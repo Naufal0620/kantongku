@@ -144,20 +144,53 @@
 
             <input type="hidden" name="category_id" id="add_categoryId" required>
 
-            <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Nominal</label>
-                <div class="flex items-center border-b-2 border-red-500 py-2" id="add_amountContainer">
-                    <span class="text-2xl font-bold mr-2 text-gray-400">Rp</span>
-                    <input type="number" name="amount" id="add_amount" class="w-full text-3xl font-bold bg-transparent focus:outline-none dark:text-white" placeholder="0" max="100000000" oninput="if(this.value > 100000000) this.value = 100000000;" required>
+            <div class="mb-6">
+                <label class="text-xs text-gray-400 font-bold uppercase block mb-2">Nominal</label>
+                
+                <div id="add_amountContainer" class="flex items-center bg-gray-50 dark:bg-dark-input border border-gray-200 dark:border-gray-600 rounded-xl px-2 py-1 transition-colors focus-within:ring-2 focus-within:border-transparent">
+                    
+                    <button type="button" onclick="adjustNominal('add_amount', -1000)" 
+                        class="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-300 rounded-lg shadow-sm hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-red-500 transition active:scale-95">
+                        <i class="fas fa-minus text-xs"></i>
+                    </button>
+
+                    <div class="flex-1 flex items-center justify-center text-center px-2">
+                        <span class="text-lg font-bold text-gray-400 mr-1">Rp</span>
+                        <input type="number" name="amount" id="add_amount" 
+                            class="w-full text-2xl font-bold bg-transparent focus:outline-none text-gray-800 dark:text-white text-center" 
+                            placeholder="0"
+                            required
+                            min="1" 
+                            max="100000000"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null; if(this.value > 100000000) this.value = 100000000;">
+                    </div>
+
+                    <button type="button" onclick="adjustNominal('add_amount', 1000)" 
+                        class="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-300 rounded-lg shadow-sm hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-green-500 transition active:scale-95">
+                        <i class="fas fa-plus text-xs"></i>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="text-xs text-gray-400 font-bold uppercase block mb-2">Tanggal</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                        <i class="fas fa-calendar-alt text-gray-400"></i>
+                    </div>
+                    <input type="text" name="date" id="add_date" 
+                        class="datepicker-input w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-dark-input dark:text-white transition cursor-pointer" 
+                        placeholder="Pilih Tanggal" required>
                 </div>
             </div>
 
             <div class="mb-6">
-                <label class="text-xs text-gray-400 font-bold uppercase block mb-2">Tanggal</label>
-                <input type="date" name="date" id="add_date" class="w-full bg-gray-50 dark:bg-dark-input dark:border-gray-600 dark:text-white border border-gray-200 rounded-xl px-4 py-3 cursor-pointer" required>
-            </div>
-
-            <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-3">Kategori</label>
-                <div id="add_categoryList" class="grid grid-cols-4 gap-3"></div>
+                <label class="text-xs text-gray-400 font-bold uppercase block mb-3">Kategori</label>
+                
+                <div id="add_categoryList" class="grid grid-cols-4 gap-3 max-h-48 overflow-y-auto p-1 custom-scrollbar">
+                </div>
+                
             </div>
 
             <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Catatan</label>
@@ -186,19 +219,53 @@
 
             <input type="hidden" name="category_id" id="edit_categoryId" required>
 
-            <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Nominal</label>
-                <div class="flex items-center border-b-2 border-red-500 py-2" id="edit_amountContainer">
-                    <span class="text-2xl font-bold mr-2 text-gray-400">Rp</span>
-                    <input type="number" name="amount" id="edit_amount" class="w-full text-3xl font-bold bg-transparent focus:outline-none dark:text-white" placeholder="0" max="100000000" oninput="if(this.value > 100000000) this.value = 100000000;" required>
+            <div class="mb-6">
+                <label class="text-xs text-gray-400 font-bold uppercase block mb-2">Nominal</label>
+                
+                <div id="edit_amountContainer" class="flex items-center bg-gray-50 dark:bg-dark-input border border-gray-200 dark:border-gray-600 rounded-xl px-2 py-1 transition-colors focus-within:ring-2 focus-within:border-transparent">
+                    
+                    <button type="button" onclick="adjustNominal('edit_amount', -1000)" 
+                        class="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-300 rounded-lg shadow-sm hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-red-500 transition active:scale-95">
+                        <i class="fas fa-minus text-xs"></i>
+                    </button>
+
+                    <div class="flex-1 flex items-center justify-center text-center px-2">
+                        <span class="text-lg font-bold text-gray-400 mr-1">Rp</span>
+                        <input type="number" name="amount" id="edit_amount" 
+                            class="w-full text-2xl font-bold bg-transparent focus:outline-none text-gray-800 dark:text-white text-center" 
+                            placeholder="0" 
+                            required
+                            min="1" 
+                            max="100000000"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null; if(this.value > 100000000) this.value = 100000000;">
+                    </div>
+
+                    <button type="button" onclick="adjustNominal('edit_amount', 1000)" 
+                        class="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-300 rounded-lg shadow-sm hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-green-500 transition active:scale-95">
+                        <i class="fas fa-plus text-xs"></i>
+                    </button>
+
                 </div>
             </div>
 
-            <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Tanggal</label>
-                <input type="date" name="date" id="edit_date" class="w-full bg-gray-50 dark:bg-dark-input dark:border-gray-600 dark:text-white border border-gray-200 rounded-xl px-4 py-3">
+            <div class="mb-4">
+                <label class="text-xs text-gray-400 font-bold uppercase block mb-2">Tanggal</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                        <i class="fas fa-calendar-alt text-gray-400"></i>
+                    </div>
+                    <input type="text" name="date" id="edit_date" 
+                        class="datepicker-input w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-dark-input dark:text-white transition cursor-pointer" 
+                        placeholder="Pilih Tanggal" required>
+                </div>
             </div>
 
-            <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-3">Kategori</label>
-                <div id="edit_categoryList" class="grid grid-cols-4 gap-3"></div>
+            <div class="mb-6">
+                <label class="text-xs text-gray-400 font-bold uppercase block mb-3">Kategori</label>
+                
+                <div id="edit_categoryList" class="grid grid-cols-4 gap-3 max-h-48 overflow-y-auto p-1 custom-scrollbar">
+                    </div>
+                
             </div>
 
             <div class="mb-6"><label class="text-xs text-gray-400 font-bold uppercase block mb-2">Catatan</label>
@@ -206,7 +273,7 @@
             </div>
 
             <div class="flex gap-3">
-                <a id="btnDeleteTx" href="#" class="flex-none py-4 px-6 bg-red-100 text-red-500 font-bold rounded-xl hover:bg-red-200 transition text-center">
+                <a id="btnDeleteTx" href="#" class="flex-none py-4 px-6 bg-red-100 text-red-500 dark:bg-red-500 dark:text-red-100 font-bold rounded-xl hover:bg-red-200 transition text-center">
                     <i class="fas fa-trash"></i>
                 </a>
                 <button type="submit" class="flex-1 bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 transition">Update</button>

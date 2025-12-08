@@ -6,11 +6,9 @@ class Kategori extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        // Load Model & Library yang diperlukan
         $this->load->model('M_kategori');
         $this->load->library('form_validation');
         
-        // Cek Login (Standar Dashboard)
         if (!$this->session->userdata('user_id')) {
             redirect('auth');
         }
@@ -21,21 +19,18 @@ class Kategori extends CI_Controller {
         $data['title'] = 'Kategori - KantongKu';
         $user_id = $this->session->userdata('user_id');
         
-        // Mengambil semua data kategori (model sudah disesuaikan sebelumnya)
         $data['kategori'] = $this->M_kategori->get_all($user_id);
         
-        // Data pendukung tampilan
-        $data['active_menu'] = 'kategori'; // Untuk highlight di Sidebar
+        $data['active_menu'] = 'kategori';
 
         $data['js'] = [
             'assets/js/kategori.js'
         ];
 
-        // Load Views (Urutan Template)
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data); // Membuka tag <main>
-        $this->load->view('kategori/index', $data);    // Konten Inti
-        $this->load->view('templates/footer');         // Menutup tag </main>
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('kategori/index', $data);
+        $this->load->view('templates/footer');
     }
 
     public function tambah()
@@ -44,8 +39,7 @@ class Kategori extends CI_Controller {
         $this->form_validation->set_rules('type', 'Jenis', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            // Jika validasi gagal, kembalikan ke index dengan error (opsional: pakai flashdata error)
-            $this->session->set_flashdata('pesan', '<div class="alert alert-danger">Gagal menambah kategori. Pastikan input benar.</div>');
+            $this->session->set_flashdata('pesan', '<div class="bg-red-100 border border-red-400 text-red-700 dark:bg-red-900/50 dark:border-red-600 dark:text-red-300 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Gagal menambah kategori.</strong> <span class="block sm:inline">Pastikan input benar.</span></div>');
             redirect('kategori');
         } else {
             $data = [
@@ -57,14 +51,13 @@ class Kategori extends CI_Controller {
             ];
 
             $this->M_kategori->insert($data);
-            $this->session->set_flashdata('pesan', '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Berhasil!</strong> <span class="block sm:inline">Kategori baru ditambahkan.</span></div>');
+            $this->session->set_flashdata('pesan', '<div class="bg-green-100 border border-green-400 text-green-700 dark:bg-green-900/50 dark:border-green-600 dark:text-green-300 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Berhasil!</strong> <span class="block sm:inline">Kategori baru ditambahkan.</span></div>');
             redirect('kategori');
         }
     }
 
     public function edit($id)
     {
-        // Validasi form sama seperti tambah
         $this->form_validation->set_rules('name', 'Nama Kategori', 'required|trim|max_length[50]');
         $this->form_validation->set_rules('type', 'Jenis', 'required');
 
@@ -78,9 +71,8 @@ class Kategori extends CI_Controller {
                 'color'   => $this->input->post('color', true)
             ];
 
-            // Pastikan ID valid dan milik user (handled by Model logic usually, but here ID is primary)
             $this->M_kategori->update($id, $data_update);
-            $this->session->set_flashdata('pesan', '<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Update Berhasil!</strong> <span class="block sm:inline">Data kategori diperbarui.</span></div>');
+            $this->session->set_flashdata('pesan', '<div class="bg-blue-100 border border-blue-400 text-blue-700 dark:bg-blue-900/50 dark:border-blue-600 dark:text-blue-300 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Update Berhasil!</strong> <span class="block sm:inline">Data kategori diperbarui.</span></div>');
             redirect('kategori');
         }
     }
@@ -88,7 +80,7 @@ class Kategori extends CI_Controller {
     public function hapus($id)
     {
         $this->M_kategori->delete($id);
-        $this->session->set_flashdata('pesan', '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Dihapus!</strong> <span class="block sm:inline">Kategori telah dihapus.</span></div>');
+        $this->session->set_flashdata('pesan', '<div class="bg-red-100 border border-red-400 text-red-700 dark:bg-red-900/50 dark:border-red-600 dark:text-red-300 px-4 py-3 rounded relative mb-4" role="alert"><strong class="font-bold">Dihapus!</strong> <span class="block sm:inline">Kategori telah dihapus.</span></div>');
         redirect('kategori');
     }
 }

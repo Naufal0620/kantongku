@@ -101,25 +101,31 @@
                 </div>
             </div>
 
-            <div class="mb-6">
+            <div class="mb-6 relative">
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Warna Tema</label>
-                <select name="color" id="inputColor" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-dark-input dark:text-white">
-                    <option value="bg-gray-100 text-gray-600">Abu-abu (Default)</option>
-                    <option value="bg-orange-100 text-orange-600">Orange</option>
-                    <option value="bg-blue-100 text-blue-600">Biru</option>
-                    <option value="bg-indigo-100 text-indigo-600">Indigo</option>
-                    <option value="bg-pink-100 text-pink-600">Pink</option>
-                    <option value="bg-purple-100 text-purple-600">Ungu</option>
-                    <option value="bg-yellow-100 text-yellow-600">Kuning</option>
-                    <option value="bg-green-100 text-green-600">Hijau</option>
-                    <option value="bg-teal-100 text-teal-600">Teal</option>
-                    <option value="bg-red-100 text-red-600">Merah</option>
-                </select>
-            </div>
+                
+                <input type="hidden" name="color" id="inputColor" value="bg-gray-100 text-gray-600">
 
+                <button type="button" onclick="toggleColorDropdown()" id="colorTriggerBtn" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 flex items-center justify-between bg-white dark:bg-dark-input dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="flex items-center gap-3">
+                        <div id="previewColorCircle" class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center border border-gray-200 dark:border-gray-500">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <span id="previewColorText" class="text-sm">Abu-abu (Default)</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                </button>
+
+                <div id="colorDropdownList" class="hidden absolute z-20 mt-1 w-full bg-white dark:bg-dark-card border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl p-3 animate-fade-in max-h-48 overflow-y-auto">
+                    <p class="text-[10px] text-gray-400 mb-2 uppercase font-bold tracking-wider">Pilih Warna</p>
+                    <div class="flex flex-col gap-2" id="colorListContainer">
+                        </div>
+                </div>
+            </div>
+            
             <div class="flex gap-3">
                 <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition">Batal</button>
-                <a id="btnDelete" href="#" class="hidden py-2 px-4 bg-red-100 text-red-500 rounded-lg hover:bg-red-200 transition flex items-center justify-center">
+                <a id="btnDelete" href="#" class="hidden py-2 px-4 bg-red-100 text-red-500 dark:bg-red-500 dark:text-red-100 rounded-lg hover:bg-red-200 transition flex items-center justify-center">
                     <i class="fas fa-trash"></i>
                 </a>
                 <button type="submit" class="flex-1 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition shadow-md">Simpan</button>

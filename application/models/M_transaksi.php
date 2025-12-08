@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_transaksi extends CI_Model {
 
-    // 1. Ambil Total Saldo, Pemasukan, Pengeluaran
     public function get_saldo($user_id) {
         $income = $this->db->select_sum('amount')->from('transactions')
                            ->join('categories', 'categories.id = transactions.category_id')
@@ -22,14 +21,12 @@ class M_transaksi extends CI_Model {
         ];
     }
 
-    // 2. Data untuk Kalender & List Transaksi (Group by Date)
     public function get_calendar_data($user_id, $month, $year) {
         $this->db->select('transactions.*, categories.name as cat_name, categories.type, categories.icon, categories.color');
         $this->db->from('transactions');
         $this->db->join('categories', 'categories.id = transactions.category_id');
         $this->db->where('transactions.user_id', $user_id);
         
-        // Filter berdasarkan parameter
         $this->db->where('MONTH(date)', $month);
         $this->db->where('YEAR(date)', $year);
         
@@ -44,9 +41,7 @@ class M_transaksi extends CI_Model {
         return $grouped;
     }
 
-    // 3. Data untuk Grafik Perbandingan Mingguan (4 Minggu Terakhir)
     public function get_weekly_chart($user_id) {
-        // Query agak kompleks untuk membagi data per minggu
         $query = $this->db->query("
             SELECT 
                 WEEK(date, 1) - WEEK(DATE_SUB(date, INTERVAL DAYOFMONTH(date)-1 DAY), 1) + 1 as week_num,
@@ -60,7 +55,6 @@ class M_transaksi extends CI_Model {
             GROUP BY week_num, categories.type
         ", [$user_id])->result_array();
 
-        // Format data agar siap pakai di ChartJS
         $result = [
             'labels' => ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4', 'Minggu 5'],
             'income' => [0, 0, 0, 0, 0],
@@ -68,7 +62,7 @@ class M_transaksi extends CI_Model {
         ];
 
         foreach ($query as $row) {
-            $idx = $row['week_num'] - 1; // Array index mulai dari 0
+            $idx = $row['week_num'] - 1;
             if (isset($result[$row['type']][$idx])) {
                 $result[$row['type']][$idx] = (int)$row['total'];
             }
@@ -97,22 +91,17 @@ class M_transaksi extends CI_Model {
     // Ambil semua transaksi di bulan & tahun tertentu untuk user ini
     public function get_monthly_data($user_id, $month, $year)
     {
-        // Pilih semua kolom transaksi, DAN kolom type dari tabel categories
         $this->db->select('transactions.*, categories.type'); 
         
         $this->db->from('transactions');
         
-        // Hubungkan transactions.category_id dengan categories.id
         $this->db->join('categories', 'transactions.category_id = categories.id');
         
-        // Filter User
         $this->db->where('transactions.user_id', $user_id);
         
-        // Filter Tanggal
         $this->db->where('MONTH(transactions.date)', $month);
         $this->db->where('YEAR(transactions.date)', $year);
         
-        // Eksekusi query
         return $this->db->get()->result_array();
     }
 
@@ -122,13 +111,13 @@ class M_transaksi extends CI_Model {
 
     public function update_transaction($id, $data) {
         $this->db->where('id', $id);
-        $this->db->where('user_id', $this->session->userdata('user_id')); // Security check
+        $this->db->where('user_id', $this->session->userdata('user_id'));
         return $this->db->update('transactions', $data);
     }
 
     public function delete_transaction($id) {
         $this->db->where('id', $id);
-        $this->db->where('user_id', $this->session->userdata('user_id')); // Security check
+        $this->db->where('user_id', $this->session->userdata('user_id'));
         return $this->db->delete('transactions');
     }
 }
