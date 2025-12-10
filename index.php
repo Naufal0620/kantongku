@@ -60,6 +60,31 @@ define(
 
 /*
  *---------------------------------------------------------------
+ * LOAD DOTENV (Modifikasi Tambahan)
+ *---------------------------------------------------------------
+ */
+
+// 2. Load Composer Autoload
+require_once __DIR__ . '/vendor/autoload.php';
+
+// 3. Logika Pemilihan File .env
+$envFile = '.env'; // Default fallback
+
+if (ENVIRONMENT === 'development') {
+    $envFile = '.env.development';
+} elseif (ENVIRONMENT === 'production') {
+    $envFile = '.env.production';
+}
+
+// 4. Eksekusi Dotenv jika filenya ada
+if (file_exists(__DIR__ . '/' . $envFile)) {
+    // Parameter kedua adalah nama file spesifik yang ingin di-load
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, $envFile);
+    $dotenv->load();
+}
+
+/*
+ *---------------------------------------------------------------
  * ERROR REPORTING
  *---------------------------------------------------------------
  *
