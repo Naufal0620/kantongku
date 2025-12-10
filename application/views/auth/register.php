@@ -21,6 +21,32 @@
             }
         }
     </script>
+
+    <style>
+        /* =========================================
+        CUSTOM DARK MODE UNTUK SWEETALERT 2
+        ========================================= */
+
+        .dark .swal2-popup {
+            background-color: #1f2937 !important; /* dark:bg-gray-800 */
+            color: #f3f4f6 !important; /* dark:text-gray-100 */
+            border: 1px solid #374151; /* dark:border-gray-700 */
+        }
+        
+        .dark .swal2-title {
+            color: #f3f4f6 !important;
+        }
+        
+        .dark .swal2-html-container {
+            color: #d1d5db !important; /* dark:text-gray-300 */
+        }
+        
+        /* Ubah warna tombol Cancel agar tidak terlalu terang di dark mode */
+        .dark .swal2-cancel {
+            background-color: #374151 !important; /* dark:bg-gray-700 */
+            color: #d1d5db !important;
+        }
+    </style>
     
     <script>
         const BASE_URL = "<?= base_url(); ?>";

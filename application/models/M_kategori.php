@@ -12,21 +12,56 @@ class M_kategori extends CI_Model {
                 "name" => "makan",
                 "type" => "expense",
                 "icon" => "utensils",
-                "color" => "bg-yellow-100 text-yellow-600"
+                "color" => "bg-yellow-100 text-yellow-600 dark:bg-yellow-600 dark:text-yellow-100"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "jajan",
+                "type" => "expense",
+                "icon" => "ice-cream",
+                "color" => "bg-orange-100 text-orange-600 dark:bg-orange-600 dark:text-orange-100"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "Kos & Listrik",
+                "type" => "expense",
+                "icon" => "home",
+                "color" => "bg-pink-100 text-pink-600 dark:bg-pink-600 dark:text-pink-100"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "Laundry",
+                "type" => "expense",
+                "icon" => "tshirt",
+                "color" => "bg-indigo-100 text-indigo-600 dark:bg-indigo-600 dark:text-indigo-100"
             ],
             [
                 "user_id" => $user_id,
                 "name" => "transportasi",
                 "type" => "expense",
                 "icon" => "bus",
-                "color" => "bg-blue-100 text-blue-600"
+                "color" => "bg-blue-100 text-blue-600 dark:bg-blue-600 dark:text-blue-100"
             ],
             [
                 "user_id" => $user_id,
                 "name" => "gaji",
                 "type" => "income",
                 "icon" => "sack-dollar",
-                "color" => "bg-green-100 text-green-600"
+                "color" => "bg-green-100 text-green-600 dark:bg-green-600 dark:text-green-100"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "hadiah/bonus",
+                "type" => "income",
+                "icon" => "gift",
+                "color" => "bg-red-100 text-red-600 dark:bg-red-600 dark:text-red-100"
+            ],
+            [
+                "user_id" => $user_id,
+                "name" => "kiriman ortu",
+                "type" => "income",
+                "icon" => "envelope-open-text",
+                "color" => "bg-teal-100 text-teal-600 dark:bg-teal-600 dark:text-teal-100"
             ],
         ];
 

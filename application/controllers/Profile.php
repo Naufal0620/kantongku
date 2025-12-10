@@ -68,7 +68,7 @@ class Profile extends CI_Controller {
                 }
                 
                 $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                $config['max_size']      = '2048'; // 2MB
+                $config['max_size']      = '5120'; // 5MB
                 $config['upload_path']   = $target_dir;
                 $config['file_name']     = 'pro_' . time(); // Rename agar unik
 
