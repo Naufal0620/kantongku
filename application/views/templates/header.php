@@ -15,7 +15,19 @@
                         dark: { bg: '#111827', card: '#1F2937', text: '#F3F4F6', muted: '#9CA3AF', input: '#374151' }
                     }
                 }
-            }
+            },
+            safelist: [
+                'bg-gray-100', 'text-gray-600', 'dark:bg-gray-600', 'dark:text-gray-100',
+                'bg-orange-100', 'text-orange-600', 'dark:bg-orange-600', 'dark:text-orange-100',
+                'bg-blue-100', 'text-blue-600', 'dark:bg-blue-600', 'dark:text-blue-100',
+                'bg-indigo-100', 'text-indigo-600', 'dark:bg-indigo-600', 'dark:text-indigo-100',
+                'bg-pink-100', 'text-pink-600', 'dark:bg-pink-600', 'dark:text-pink-100',
+                'bg-purple-100', 'text-purple-600', 'dark:bg-purple-600', 'dark:text-purple-100',
+                'bg-yellow-100', 'text-yellow-600', 'dark:bg-yellow-600', 'dark:text-yellow-100',
+                'bg-green-100', 'text-green-600', 'dark:bg-green-600', 'dark:text-green-100',
+                'bg-teal-100', 'text-teal-600', 'dark:bg-teal-600', 'dark:text-teal-100',
+                'bg-red-100', 'text-red-600', 'dark:bg-red-600', 'dark:text-red-100'
+            ]
         }
     </script>
 

@@ -91,8 +91,10 @@
             <button type="submit" id="btnLogin" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition shadow-lg flex justify-center items-center gap-2">
                 Masuk
             </button>
+            <div class="flex justify-end mb-4 mt-2">
+                <a href="<?= base_url('auth/forgotpassword'); ?>" class="text-sm text-green-600 hover:underline">Lupa Password?</a>
+            </div>
         </form>
-
         <div class="text-center mt-4">
             <a href="<?= base_url('auth/registration'); ?>" class="text-sm text-green-600 hover:underline">Belum punya akun? Daftar</a>
         </div>
