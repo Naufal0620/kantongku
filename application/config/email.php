@@ -2,11 +2,13 @@
 
 $config = [
     'protocol'  => 'smtp',
-    'smtp_host' => 'ssl://smtp.googlemail.com',
-    'smtp_user' => 'email_anda@gmail.com',
-    'smtp_pass' => 'password_app_anda',
-    'smtp_port' => 465,
+    'smtp_host' => $_ENV['SMTP_HOST'],
+    'smtp_user' => $_ENV['SMTP_USER'],
+    'smtp_pass' => $_ENV['SMTP_PASS'],
+    'smtp_port' => $_ENV['SMTP_PORT'],
     'mailtype'  => 'html',
     'charset'   => 'utf-8',
-    'newline'   => "\r\n"
+    'newline'   => "\r\n",
+    'crlf'      => "\r\n", 
+    'validation'=> TRUE
 ];

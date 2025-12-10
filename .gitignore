@@ -15,7 +15,6 @@ user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
-/vendor/
 
 # IDE Files
 #-------------------------
@@ -32,4 +31,18 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 
 # Credentials
-.env
+.env.development
+.env.production
+!.env.example
+
+# Dependency
+node_modules/
+vendor/
+package-lock.json
+.prettierignore
+/prettierrc.json
+
+# --- User Uploads (Abaikan isinya, tapi simpan foldernya) ---
+uploads/profile/*
+!uploads/profile/index.html
+!uploads/profile/.gitkeep

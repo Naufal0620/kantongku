@@ -1,0 +1,13 @@
+{
+  "plugins": ["@prettier/plugin-php"],
+  "overrides": [
+    {
+      "files": "application/views/**/*.php",
+      "options": {
+        "tabWidth": 4,
+        "printWidth": 120,
+        "phpVersion": "7.4"
+      }
+    }
+  ]
+}

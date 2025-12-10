@@ -163,7 +163,7 @@ class Auth extends CI_Controller {
 
     private function _sendEmail($token, $type)
     {
-        $this->load->library('email'); // Load config yang tadi dibuat
+        $this->load->library('email');
         
         $email_to = $this->input->post('email');
         
@@ -172,12 +172,23 @@ class Auth extends CI_Controller {
 
         if ($type == 'forgot') {
             $this->email->subject('Reset Password - KantongKu');
-            $this->email->message('Klik link ini untuk mereset password Anda: <br><br> <a href="' . base_url() . 'auth/resetpassword?email=' . $email_to . '&token=' . urlencode($token) . '">Reset Password</a>');
+            
+            // --- DATA UNTUK VIEW EMAIL ---
+            $data_email = [
+                'email' => $email_to,
+                'url'   => base_url() . 'auth/resetpassword?email=' . $email_to . '&token=' . urlencode($token)
+            ];
+
+            // Load View menjadi String (Parameter TRUE di akhir)
+            $message = $this->load->view('auth/email_reset', $data_email, TRUE);
+            
+            $this->email->message($message);
         }
 
         if ($this->email->send()) {
             return true;
         } else {
+            // Untuk debugging di localhost jika gagal
             echo $this->email->print_debugger();
             die;
         }
