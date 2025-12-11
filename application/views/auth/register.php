@@ -58,41 +58,42 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 dark:bg-dark-bg flex items-center px-4 justify-center h-screen transition-colors duration-300">
-
-    <a href="<?= base_url(); ?>" class="absolute top-6 left-6 text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition flex items-center gap-2 font-medium text-sm">
-        <i class="fas fa-arrow-left"></i>
-        <span>Kembali ke Home</span>
-    </a>
-
-    <div class="bg-white dark:bg-dark-card p-8 rounded-2xl shadow-xl w-full max-w-md transition-colors duration-300 border border-transparent dark:border-gray-700">
-        <div class="text-center mb-6">
-            <i class="fas fa-user-plus text-4xl text-green-500 mb-2"></i>
-            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Akun</h1>
-            <p class="text-gray-500 dark:text-gray-400 text-sm">Bergabunglah dengan KantongKu.</p>
-        </div>
-
-        <form id="formRegister">
-            <div class="mb-4">
-                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Nama Lengkap</label>
-                <input type="text" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-dark-input dark:border-gray-600 dark:text-white" placeholder="Anak Kos Sejati" required>
+<body class="bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+    <div class="flex items-center px-4 justify-center h-screen w-full relative">
+        <a href="<?= base_url(); ?>" class="absolute top-6 left-6 text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400 transition flex items-center gap-2 font-medium text-sm">
+            <i class="fas fa-arrow-left"></i>
+            <span>Kembali ke Home</span>
+        </a>
+    
+        <div class="bg-white dark:bg-dark-card p-8 rounded-2xl shadow-xl w-full max-w-md transition-colors duration-300 border border-transparent dark:border-gray-700">
+            <div class="text-center mb-6">
+                <i class="fas fa-user-plus text-4xl text-green-500 mb-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Akun</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Bergabunglah dengan KantongKu.</p>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email</label>
-                <input type="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-dark-input dark:border-gray-600 dark:text-white" placeholder="user@kantongku.com" required>
+    
+            <form id="formRegister">
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Nama Lengkap</label>
+                    <input type="text" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-dark-input dark:border-gray-600 dark:text-white" placeholder="Anak Kos Sejati" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email</label>
+                    <input type="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-dark-input dark:border-gray-600 dark:text-white" placeholder="user@kantongku.com" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Password</label>
+                    <input type="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-dark-input dark:border-gray-600 dark:text-white" placeholder="********" required>
+                </div>
+                
+                <button type="submit" id="btnRegister" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition shadow-lg flex justify-center items-center gap-2">
+                    Daftar Sekarang
+                </button>
+            </form>
+    
+            <div class="text-center mt-4">
+                <a href="<?= base_url('auth'); ?>" class="text-sm text-green-600 hover:underline">Sudah punya akun? Login</a>
             </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Password</label>
-                <input type="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-dark-input dark:border-gray-600 dark:text-white" placeholder="********" required>
-            </div>
-            
-            <button type="submit" id="btnRegister" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition shadow-lg flex justify-center items-center gap-2">
-                Daftar Sekarang
-            </button>
-        </form>
-
-        <div class="text-center mt-4">
-            <a href="<?= base_url('auth'); ?>" class="text-sm text-green-600 hover:underline">Sudah punya akun? Login</a>
         </div>
     </div>
 
