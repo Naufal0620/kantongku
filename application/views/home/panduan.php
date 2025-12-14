@@ -55,6 +55,22 @@
                 <p class="text-gray-600 dark:text-gray-400 text-lg">Langkah awal perjalanan hematmu bersama KantongKu.</p>
             </div>
 
+            <div class="mb-10">
+                <div class="bg-black rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-gray-600 relative aspect-video w-full max-w-3xl mx-auto">
+                    <iframe 
+                        class="w-full h-full absolute inset-0" 
+                        src="https://www.youtube.com/embed/aDjbZ5uEiG0" 
+                        title="Panduan KantongKu" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3 italic">
+                    <i class="fas fa-video text-red-500 mr-1"></i> Tonton video singkat pengenalan aplikasi di atas.
+                </p>
+            </div>
+
             <div class="prose dark:prose-invert max-w-none space-y-8">
                 <div class="flex gap-4">
                     <div class="flex-shrink-0 w-10 h-10 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 font-bold">1</div>
