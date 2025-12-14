@@ -130,6 +130,31 @@
                         <li>Tambahkan catatan opsional agar tidak lupa.</li>
                     </ul>
                 </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-edit text-blue-500"></i> Mengedit & Menghapus Transaksi
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-3">
+                        Salah input nominal atau ingin membatalkan transaksi? Tenang, bisa diedit kok.
+                    </p>
+                    <div class="bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
+                        <ul class="space-y-4 text-gray-600 dark:text-gray-400">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-mouse-pointer mt-1 text-green-500"></i>
+                                <span><b>Pilih Transaksi:</b> Klik pada item transaksi yang salah di daftar riwayat (di bawah kalender atau daftar "Transaksi Hari Ini").</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-pen mt-1 text-blue-500"></i>
+                                <span><b>Edit Data:</b> Jendela popup akan muncul. Ubah nominal, tanggal, atau catatan sesuai keinginan, lalu tekan tombol <b>Update</b>.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-trash mt-1 text-red-500"></i>
+                                <span><b>Hapus Permanen:</b> Jika ingin menghapus, tekan tombol <b>Ikon Sampah Merah</b> yang ada di pojok kiri bawah jendela popup tersebut.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -162,6 +187,31 @@
                         <p class="text-sm text-gray-600 dark:text-gray-400">
                             Gunakan warna <span class="text-red-500 font-bold">Merah</span> untuk kategori pengeluaran yang harus diwaspadai (seperti Jajan), 
                             dan warna <span class="text-blue-500 font-bold">Biru</span> untuk kebutuhan pokok.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-2 flex items-center gap-2">
+                            <i class="fas fa-cog text-gray-400"></i> Mengedit & Menghapus Kategori
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                            Kamu bisa mengubah nama, ikon, atau warna kategori kapan saja.
+                        </p>
+                        <ol class="list-decimal list-inside space-y-3 text-gray-600 dark:text-gray-400">
+                            <li>Klik langsung pada <b>Kartu Kategori</b> yang ingin diubah.</li>
+                            <li>Jendela edit akan terbuka (sama seperti saat menambah baru).</li>
+                            <li>Lakukan perubahan yang diperlukan, lalu klik <b>Simpan</b>.</li>
+                            <li>Untuk <b>Menghapus</b>, klik tombol <span class="text-red-500 font-bold bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded text-xs"><i class="fas fa-trash"></i> Sampah Merah</span> di sebelah tombol Batal.</li>
+                        </ol>
+                    </div>
+                    <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400">
+                        <p class="text-xs text-yellow-800 dark:text-yellow-200 font-bold">
+                            <i class="fas fa-exclamation-triangle mr-1"></i> Catatan Penting:
+                        </p>
+                        <p class="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
+                            Menghapus kategori tidak akan menghapus transaksi yang sudah ada, namun transaksi tersebut mungkin akan kehilangan label kategorinya. Hapuslah dengan bijak.
                         </p>
                     </div>
                 </div>

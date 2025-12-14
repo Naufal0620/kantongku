@@ -24,7 +24,7 @@ class M_transaksi extends CI_Model {
     public function get_calendar_data($user_id, $month, $year) {
         $this->db->select('transactions.*, categories.name as cat_name, categories.type, categories.icon, categories.color');
         $this->db->from('transactions');
-        $this->db->join('categories', 'categories.id = transactions.category_id');
+        $this->db->join('categories', 'categories.id = transactions.category_id', 'left');
         $this->db->where('transactions.user_id', $user_id);
         
         $this->db->where('MONTH(date)', $month);

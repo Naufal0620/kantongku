@@ -293,20 +293,26 @@ function selectDate(day) {
             const sign = t.type === 'income' ? '+' : '-';
             
             const txString = JSON.stringify(t).replace(/'/g, "&#39;");
-            let rawNoteList = t.note ? t.note : t.cat_name;
+            // Logika Baru: Cek apakah kategori ada? Jika tidak (null), pakai default.
+            let isDeleted = !t.cat_name; // Cek jika nama kategori kosong/null
+
+            let catName = isDeleted ? 'Tak Dikategorikan' : t.cat_name;
+            let catIcon = isDeleted ? 'question' : t.icon; // Ikon tanda tanya
+            let catColor = isDeleted ? 'bg-gray-400 text-white' : t.color; // Warna abu-abu
+            let rawNoteList = t.note ? t.note : catName;
 
             const itemHTML = `
                 <div onclick='openEditModal(${txString})' class="cursor-pointer group flex items-center justify-between p-3 border border-gray-100 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-white dark:hover:bg-gray-600 hover:border-green-400 transition shadow-sm hover:shadow-md">
                     <div class="flex items-center gap-3 flex-1 min-w-0">
-                        <div class="w-8 h-8 rounded-full ${t.color} flex-shrink-0 flex items-center justify-center text-xs">
-                            <i class="fas fa-${t.icon}"></i>
+                        <div class="w-8 h-8 rounded-full ${catColor} flex-shrink-0 flex items-center justify-center text-xs">
+                            <i class="fas fa-${catIcon}"></i>
                         </div>
                         <div class="min-w-0">
                             <span class="text-sm font-medium text-gray-700 dark:text-gray-300 block group-hover:text-green-600 transition truncate" title="${rawNoteList}">
                                 ${rawNoteList}
                             </span>
                             <span class="text-[10px] text-gray-400 block truncate">
-                                ${t.cat_name}
+                                ${catName}
                             </span>
                         </div>
                     </div>
@@ -319,20 +325,21 @@ function selectDate(day) {
             listContainer.innerHTML += itemHTML;
             
             if(day === new Date().getDate() && todayTable) {
-                 let rawNote = t.note ? t.note : t.cat_name;
+                // let rawNote = t.note ? t.note : t.cat_name;
+                let rawNote = t.note ? t.note : catName;
                  todayTable.innerHTML += `
                     <tr class="border-b dark:border-gray-700 last:border-0">
                         <td class="py-3 w-[60%]">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full ${t.color} flex-shrink-0 flex items-center justify-center">
-                                    <i class="fas fa-${t.icon} text-xs"></i>
+                                <div class="w-8 h-8 rounded-full ${catColor} flex-shrink-0 flex items-center justify-center">
+                                    <i class="fas fa-${catIcon} text-xs"></i>
                                 </div>
                                 <div class="flex-1 min-w-0"> 
                                     <span class="block font-semibold truncate" title="${rawNote}">
                                         ${rawNote}
                                     </span>
                                     <span class="text-[10px] text-gray-400 font-normal block truncate">
-                                        ${t.cat_name}
+                                        ${catName}
                                     </span>
                                 </div>
                             </div>
@@ -407,7 +414,10 @@ function openEditModal(tx) {
             }
         });
     };
-    setModalCategoryType(tx.type, 'edit', tx.category_id);
+
+    let transactionType = tx.type || 'expense';
+
+    setModalCategoryType(transactionType, 'edit', tx.category_id);
 }
 
 // LOGIKA PILIH KATEGORI

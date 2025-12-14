@@ -201,9 +201,7 @@ function editCategory(element) {
         }).then((result) => {
             if (result.isConfirmed) {
                 showLoading();
-                setTimeout(() => {
-                    window.location.href = deleteUrl;
-                }, 10000);
+                window.location.href = deleteUrl;
             }
         });
     };
