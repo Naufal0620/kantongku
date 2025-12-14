@@ -29,23 +29,62 @@
 <?php 
     $daysLeft = ($saldo['total'] > 0 && $burn_rate > 0) ? floor($saldo['total'] / $burn_rate) : 0;
     $isDanger = ($daysLeft < 10 && $daysLeft > 0);
+    $isEmpty = ($saldo['total'] <= 0);
+
+    // Menentukan warna background berdasarkan kondisi keuangan
+    if ($isEmpty || $isDanger) {
+        // Warna Merah/Orange jika bahaya
+        $bgClass = "bg-gradient-to-r from-red-600 to-orange-500 shadow-red-200 dark:shadow-none";
+        $iconBg = "bg-white text-red-600";
+        $statusTitle = "PERINGATAN KEUANGAN";
+    } else {
+        // Warna Biru/Indigo jika aman
+        $bgClass = "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-blue-200 dark:shadow-none";
+        $iconBg = "bg-white text-blue-600";
+        $statusTitle = "Analisis Cerdas";
+    }
 ?>
-<div class="bg-blue-50 dark:bg-gray-800 border border-blue-200 dark:border-gray-600 p-4 rounded-xl mb-8 flex items-start gap-4 shadow-sm transition-colors">
-    <div class="bg-blue-100 dark:bg-gray-700 p-3 rounded-full text-blue-600 dark:text-blue-400">
+
+<div class="<?= $bgClass ?> p-6 rounded-2xl shadow-xl mb-8 relative overflow-hidden text-white">
+    
+    <div class="absolute -right-6 -bottom-8 text-9xl text-white opacity-10 rotate-12 pointer-events-none">
         <i class="fas fa-brain"></i>
     </div>
-    <div>
-        <h4 class="font-bold text-blue-800 dark:text-blue-300 text-sm mb-1">Analisis Cerdas</h4>
-        <p class="text-sm text-blue-700 dark:text-gray-300 leading-relaxed">
-            Rata-rata pengeluaran <b>Rp <?= number_format($burn_rate, 0, ',', '.') ?>/hari</b>.
-            <?php if ($saldo['total'] <= 0): ?>
-                Saldo Anda habis atau minus!
-            <?php elseif ($isDanger): ?>
-                ⚠️ <b class="text-red-600">BAHAYA!</b> Saldo diprediksi habis dalam <b><?= $daysLeft ?> hari</b>!
-            <?php else: ?>
-                Saldo aman untuk sekitar <b><?= $daysLeft ?> hari</b> lagi.
-            <?php endif; ?>
-        </p>
+
+    <div class="relative z-10 flex flex-col sm:flex-row items-start gap-5">
+        <div class="<?= $iconBg ?> w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+            <i class="fas fa-brain text-2xl animate-pulse"></i>
+        </div>
+
+        <div class="flex-1">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-widest opacity-80 mb-1"><?= $statusTitle ?></h4>
+                    
+                    <div class="text-3xl font-extrabold mb-2">
+                        <?php if ($isEmpty): ?>
+                            Saldo Habis!
+                        <?php elseif ($isDanger): ?>
+                            Sisa <?= $daysLeft ?> Hari Lagi
+                        <?php else: ?>
+                            Aman untuk <?= $daysLeft ?> Hari
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-sm font-medium opacity-90 leading-relaxed border-t border-white border-opacity-20 pt-3 mt-1">
+                Rata-rata pengeluaranmu <b>Rp <?= number_format($burn_rate, 0, ',', '.') ?>/hari</b>.
+                
+                <?php if ($isEmpty): ?>
+                    Saat ini saldo Anda kosong atau minus. <span class="underline font-bold">Segera atur keuangan!</span>
+                <?php elseif ($isDanger): ?>
+                    Keuangan menipis! <span class="font-bold bg-white bg-opacity-20 px-1 rounded">Mohon berhemat</span> agar bertahan sampai akhir bulan.
+                <?php else: ?>
+                    Kondisi keuanganmu <span class="font-bold">sehat</span>. Pertahankan pola pengeluaran ini.
+                <?php endif; ?>
+            </p>
+        </div>
     </div>
 </div>
 
