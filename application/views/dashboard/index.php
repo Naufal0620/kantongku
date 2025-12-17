@@ -28,31 +28,23 @@
 
 <?php 
     $daysLeft = ($saldo['total'] > 0 && $burn_rate > 0) ? floor($saldo['total'] / $burn_rate) : 0;
-    $isDanger = ($daysLeft < 10 && $daysLeft > 0);
+    $isDanger = ($daysLeft < 10);
     $isEmpty = ($saldo['total'] <= 0);
 
-    // Menentukan warna background berdasarkan kondisi keuangan
     if ($isEmpty || $isDanger) {
-        // Warna Merah/Orange jika bahaya
-        $bgClass = "bg-gradient-to-r from-red-600 to-orange-500 shadow-red-200 dark:shadow-none";
-        $iconBg = "bg-white text-red-600";
+        $bgClass = "bg-white dark:bg-dark-card border-2 border-red-300 dark:border-red-900";
+        $iconBg = "bg-red-100 dark:bg-red-600 text-red-600 dark:text-red-100";
         $statusTitle = "PERINGATAN KEUANGAN";
     } else {
-        // Warna Biru/Indigo jika aman
-        $bgClass = "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-blue-200 dark:shadow-none";
-        $iconBg = "bg-white text-blue-600";
+        $bgClass = "bg-white dark:bg-dark-card border-2 border-blue-300 dark:border-blue-900";
+        $iconBg = "bg-blue-100 dark:bg-blue-600 text-blue-600 dark:text-blue-100";
         $statusTitle = "Analisis Cerdas";
     }
 ?>
 
-<div class="<?= $bgClass ?> p-6 rounded-2xl shadow-xl mb-8 relative overflow-hidden text-white">
-    
-    <div class="absolute -right-6 -bottom-8 text-9xl text-white opacity-10 rotate-12 pointer-events-none">
-        <i class="fas fa-brain"></i>
-    </div>
-
+<div class="<?= $bgClass ?> p-6 rounded-2xl mb-8 relative overflow-hidden">
     <div class="relative z-10 flex flex-col sm:flex-row items-start gap-5">
-        <div class="<?= $iconBg ?> w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+        <div class="<?= $iconBg ?> w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0">
             <i class="fas fa-brain text-2xl animate-pulse"></i>
         </div>
 
@@ -73,7 +65,7 @@
                 </div>
             </div>
 
-            <p class="text-sm font-medium opacity-90 leading-relaxed border-t border-white border-opacity-20 pt-3 mt-1">
+            <p class="text-sm font-medium opacity-90 leading-relaxed border-t border-black dark:border-white border-opacity-20 dark:border-opacity-20 pt-3 mt-1">
                 Rata-rata pengeluaranmu <b>Rp <?= number_format($burn_rate, 0, ',', '.') ?>/hari</b>.
                 
                 <?php if ($isEmpty): ?>
